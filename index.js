@@ -64,7 +64,6 @@ const showDescription = () => {
 }
 
 const handleStartGame = () => {
-  alert('I called');
   let patternElement = document.getElementById('pattern');
   let selectedOption = patternElement.options[patternElement.selectedIndex].text;
   //find the pattern matching the selected option 

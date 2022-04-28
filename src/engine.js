@@ -16,33 +16,7 @@ export const parse = (pattern) => {
     })
   });
 
-    // arr.filter((i) => {
-    //   if(i == alive){
-    //     item[i].push(true);
-    //   } else {
-    //     item[i].push(false);
-    //   }
-    // })
-
-
-  console.table(playerState);
   return playerState;
   
-  // for(var i = 0; i < playerState.length; i++){
-  //   if(playerState[i] == 0) {
-  //     initialState.push(false);
-  //   } else {
-  //     initialState.push(true);
-  //   }
-  // }
-  // console.log(initialState)
-  // return initialState;
 };
 
-const make2DArray = (cols, rows) => {
-  var arr = new Array(cols);
-  for(var i = 0; i < arr.length; i++){
-    arr[i] = new Array(rows);
-  }
- return arr;
-}
