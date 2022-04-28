@@ -5,21 +5,38 @@ export const next = (world) => {
 };
 // (pattern: string) => boolean[][]
 // implement your lexicon parsing logic here
+
 export const parse = (pattern) => {
-  const alive = '0';
-  const dead = '.';
-  const nextRow = '/n'
-  let playerState = Array.from(pattern);
-  let initialState = [];
-  for(var i = 0; i < playerState.length; i++){
-    if(playerState[i] === alive){
-      initialState.push(true);
-    } else if (playerState[i] === dead){
-      initialState.push(false);
-    }
-  }
-  console.log(initialState)
-  return initialState;
+  const filterPattern = pattern.split('\n');
+  const playerState = filterPattern.map((item) => item.split(''));
+
+  playerState.forEach((col, x) => {
+    col.forEach((row, y) => {
+      row == '.' ? col[y] = false : col[y] = true;
+    })
+  });
+
+    // arr.filter((i) => {
+    //   if(i == alive){
+    //     item[i].push(true);
+    //   } else {
+    //     item[i].push(false);
+    //   }
+    // })
+
+
+  console.table(playerState);
+  return playerState;
+  
+  // for(var i = 0; i < playerState.length; i++){
+  //   if(playerState[i] == 0) {
+  //     initialState.push(false);
+  //   } else {
+  //     initialState.push(true);
+  //   }
+  // }
+  // console.log(initialState)
+  // return initialState;
 };
 
 const make2DArray = (cols, rows) => {

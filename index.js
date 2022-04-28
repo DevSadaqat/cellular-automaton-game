@@ -7,14 +7,13 @@ const worldHeight = 240;
 const url = "./src/lexicon.json";
 let patternData;
 let patternMessage = ''; 
-
-
+let world;
 
 const canvas = document.querySelector("canvas");
 canvas.width = worldWidth * scale;
 canvas.height = worldHeight * scale;
 const ctx = canvas.getContext("2d");
-
+//boolean [][]
 const render = (world) => {
   ctx.fillStyle = "#202020";
   ctx.fillRect(0, 0, worldWidth * scale, worldHeight * scale);
@@ -50,33 +49,32 @@ const getPatterns = async () => {
 
  window.onload = getPatterns;
 
- 
 const showDescription = () => {
   let description = document.getElementById('description');
   let patternElement = document.getElementById('pattern');
+  let startButton = document.getElementById('start-btn');
   let selectedOption = patternElement.options[patternElement.selectedIndex].text; 
-  //find the description matching the selected option 
-  const filteredOption = filterData(patternData, selectedOption);
-  // const filteredOption = patternData && selectedOption
-  //   ? patternData.filter(item => item.name  === selectedOption)
-  //   : "No result Found";
-  //bind filteredOption to description 
-  description.innerHTML = '<p>' + filteredOption[0].description + '</p>';  
-  parse(filteredOption[0].pattern);   
+  if(selectedOption){
+    startButton.style.display = 'flex'; 
+    //find the description matching the selected option 
+    const filteredOption = filterData(patternData, selectedOption);
+    description.innerHTML = '<p>' + filteredOption[0].description + '</p>';  
+    world = parse(filteredOption[0].pattern);
+  } 
 }
 
-// const handleStartGame = () => {
-//   let selectedOption = patternElement.options[patternElement.selectedIndex].text;
-//   //find the pattern matching the selected option 
-//   const filteredPattern = filterData(patternData, selectedOption);
-//   patternMessage = filteredPattern[0].pattern;
-//   if(patternMessage.length != 0){
-//     parse(patternMessage);
-//   }
-//   // const filteredPattern = patternData && selectedOption
-//   //   ? patternData.filter(item => item.name  === selectedOption)
-//   //   : "No result Found";
-// }
+const handleStartGame = () => {
+  alert('I called');
+  let patternElement = document.getElementById('pattern');
+  let selectedOption = patternElement.options[patternElement.selectedIndex].text;
+  //find the pattern matching the selected option 
+  const filteredPattern = filterData(patternData, selectedOption);
+  patternMessage = filteredPattern[0].pattern;
+  if(patternMessage.length != 0){
+    world = parse(patternMessage);
+    render(next(world));
+  }
+}
 
 //private function to filter data 
 const filterData = (data, option) => {
@@ -87,21 +85,18 @@ const filterData = (data, option) => {
     return filteredOption;
 }
 
-
-
-
-
 document.getElementById('pattern').addEventListener('change', showDescription);
-// document.getElementById('start-btn').addEventListener('onClick', handleStartGame);
-
-
-
+document.getElementById('start-btn').addEventListener('click', handleStartGame);
 
 
 // code below demonstrates how to advance the world to the next state and render it
 // correct logic that reads initial state from lexicon and calculates the next state given current state needs to be implemented
 const exampleWorld = Array(240).fill(Array(480).fill(true));
-// const exampleWorld = world
+
+if(world){
+  render(next(world));
+} else {
+  render(next(exampleWorld));
+}
 
 
-render(next(exampleWorld));

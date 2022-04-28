@@ -55,6 +55,7 @@ label {
   width: fit-content;
   align-self: center;
   margin-top: 1rem;
+  display: none;
 }
 
 .spc-1 {
