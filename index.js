@@ -30,12 +30,11 @@ const getPatterns = async () => {
   try {
     const data = await fetch(url);
     const pattern = await data.json(); 
-    console.log(pattern); 
      patternData = pattern;
     let options = '';
     let patternElement = document.getElementById('pattern');
     for(let i = 0; i < pattern.length; i++){
-      //Bind pattern to select element
+      //Bind pattern to select element–
         let item = pattern[i]; 
         options += '<option value="" selected disabled hidden>Choose here</option>';
         options += '<option value="' + item.name + '">';
@@ -92,10 +91,7 @@ document.getElementById('start-btn').addEventListener('click', handleStartGame);
 // correct logic that reads initial state from lexicon and calculates the next state given current state needs to be implemented
 const exampleWorld = Array(240).fill(Array(480).fill(true));
 
-if(world){
-  render(next(world));
-} else {
+if(!world){
   render(next(exampleWorld));
-}
-
+} 
 
